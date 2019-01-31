@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Musician Credits Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="static/musiciancredits/style.css">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+</head>
+<body>
+    <div class="dash-bg">
+        <div class="header-dash">
+            <div class="header-left">
+                <h2>Musician Credits</h2>
+                <h5>Welcome, {{user.first_name}}</h5>
+            </div>
+            <div class="header-right">
+                <a href="/edit_account/{{user.id}}">Edit My Account</a> | 
+                <a href="/logout">Logout</a><br>
+                <h4><a href="/add_recording">Add a Recording</a></h4>
+            </div>
+
+        </div>
+
+        <div>
+            <div class="main">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Artist</th>
+                            <th>Album</th>
+                            <th>Label</th>
+                            <th>Year</th>
+                            <th>Credits</th>
+                            <th>Listen</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in recordings %}
+                        <tr>
+                            <td>
+                                {% if not i.cover %}
+                                <div class="cover"></div>
+                                {% else %}
+                                <div class="text-center"><img class="cover" src="media/{{i.cover}}" alt="{{i.artist}} {{i.album}}"></div>
+                                {% endif %}
+                            </td>
+                            <td data-title="Artist:">{{i.artist}}</td>  
+                            <td data-title="Album:">{{i.album}}</td>  
+                            <td data-title="Label:">{{i.label}}</td>  
+                            <td data-title="Year:">{{i.year}}</td>  
+                            <td data-title="Credits:">{{i.instrument}}</td>
+                            <td data-title="Listen:">
+                                {% if i.spotify %}
+                                <a href="{{i.spotify}}" target="_blank"><img src="media/images/spotify.png"></a> 
+                                {% endif %}
+                                {% if i.youtube %}
+                                <a href="{{i.youtube}}" target="_blank"><img src="media/images/youtube.png"></a>
+                                <div id="player"></div>
+                                {% endif %}
+                            </td>
+                            <td data-title="Action:">{% if i in created_recordings %}
+                                    <a href="/edit_recording/{{i.id}}">Edit</a>
+                                    <a href="/delete/{{i.id}}" onclick="return confirm('Are you sure you want to delete this recording?');">Delete</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

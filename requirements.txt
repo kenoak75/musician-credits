@@ -1,0 +1,4 @@
+Django==1.10
+Pillow==5.4.1
+py-bcrypt==0.4
+pytz==2018.9

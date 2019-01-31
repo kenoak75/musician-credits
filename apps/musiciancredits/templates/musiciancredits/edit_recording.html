@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Musician Credits - Edit Recording</title>
+    <link rel="stylesheet" type="text/css" href="/static/musiciancredits/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="header-left">
+            </div>
+            <div class="header-right">
+                <a href="/dashboard">Back</a> | 
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div class="add-recording">
+                <h2>Edit Recording</h2>
+                {% if messages %}
+                        {% for message in messages %}
+                        <p class="messages" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    <form action="/update/{{recording.id}}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <div class="form-group">
+                        <label for="artist" name="artist">Artist:
+                        <input type="text" name="artist" value="{{recording.artist}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="album" name="album">Album:
+                        <input type="text" name="album" value="{{recording.album}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="label" name="label">Label:
+                        <input type="text" name="label" value="{{recording.label}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="year" name="year">Year:
+                        <input type="text" name="year" value="{{recording.year}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="instrument" name="instrument">Instrument(s):
+                        <input type="text" name="instrument" value="{{recording.instrument}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="spotify" name="spotify">Spotify Link (optional):
+                        <input type="text" name="spotify" value="{{recording.spotify}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="youtube" name="youtube">YouTube Link (optional):
+                        <input type="text" name="youtube" value="{{recording.youtube}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="cover" name="cover">Album Cover (optional):
+                        <input type="file" name="cover" value="{{recording.cover}}" class="form-control"/>
+                        </label>
+                    </div>
+                    <br>
+                    <button class="btn" type="submit">Submit</button>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+    </body>
+    </html>
